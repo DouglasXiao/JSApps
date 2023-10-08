@@ -12,7 +12,6 @@ for (let i = 0; i < 1000; i++) {
 infiniteList.append(...liList);
 
 document.addEventListener("DOMContentLoaded", () => {
-        const observeTarget = "liId-500";
         let options = {
                 root: null, // to use current viewport 
                 rootMargin: "0px",
@@ -21,12 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
         let observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                                console.log(`scrolling past ${observeTarget}`);
+                                console.log(`scrolling past ${entry.target.id}`);
                         }
                 });
         }, options);
-        let target = document.querySelector(`#${observeTarget}`);
-        if (target) {
-                observer.observe(target);
-        }
+
+        let targetIds = ["liId-200", "liId-500", "liId-800"];
+        targetIds.forEach((id) => {
+                let target = document.querySelector(`#${id}`);
+                if (target) {
+                        observer.observe(target);
+                }
+        });
 });
